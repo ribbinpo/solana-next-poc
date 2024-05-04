@@ -9,7 +9,7 @@ import {
   SolflareWalletAdapter,
   TorusWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
-import { Cluster, clusterApiUrl } from "@solana/web3.js";
+import { clusterApiUrl } from "@solana/web3.js";
 import { FC, ReactNode, useCallback, useMemo } from "react";
 import { AutoConnectProvider, useAutoConnect } from "./AutoConnectProvider";
 import {
@@ -23,9 +23,9 @@ const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   const endPoint = useMemo(() => {
     console.log("Network: ", networkConfiguration);
-    if (networkConfiguration === "mainnet-beta") {
+    if (networkConfiguration === WalletAdapterNetwork.Mainnet) {
       return process.env.NEXT_PUBLIC_SOLANA_MAINNET_URL || "";
-    } else if (networkConfiguration === "devnet") {
+    } else if (networkConfiguration === WalletAdapterNetwork.Devnet) {
       return clusterApiUrl(networkConfiguration);
     } else {
       return clusterApiUrl(networkConfiguration);

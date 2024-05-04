@@ -21,7 +21,7 @@ export const NetworkConfigurationProvider: React.FC<{
 }> = ({ children }) => {
   const [networkConfiguration, setNetworkConfiguration] = useLocalStorage(
     "network",
-    WalletAdapterNetwork.Devnet
+    WalletAdapterNetwork.Devnet // set devnet by default
   );
 
   return (
