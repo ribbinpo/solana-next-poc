@@ -1,3 +1,5 @@
+import { FC, ReactNode, useCallback, useMemo } from "react";
+
 import { WalletAdapterNetwork, WalletError } from "@solana/wallet-adapter-base";
 import {
   ConnectionProvider,
@@ -10,7 +12,7 @@ import {
   TorusWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
 import { clusterApiUrl } from "@solana/web3.js";
-import { FC, ReactNode, useCallback, useMemo } from "react";
+
 import { AutoConnectProvider, useAutoConnect } from "./AutoConnectProvider";
 import {
   NetworkConfigurationProvider,
@@ -38,7 +40,7 @@ const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
       new SolflareWalletAdapter(),
       new TorusWalletAdapter(),
     ],
-    [networkConfiguration]
+    []
   );
 
   const onError = useCallback((error: WalletError) => {
