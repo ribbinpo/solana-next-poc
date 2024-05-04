@@ -3,7 +3,9 @@ import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const MenuList: { label: string; href: string }[] = [];
+const MenuList: { label: string; href: string }[] = [
+  { label: "counter", href: "/counter" },
+];
 
 export default function Home() {
   return (
