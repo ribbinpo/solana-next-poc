@@ -5,6 +5,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 const MenuList: { label: string; href: string }[] = [
   { label: "counter", href: "/counter" },
+  { label: "spl-token", href: "/spl-token" },
 ];
 
 export default function Home() {
