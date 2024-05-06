@@ -3,20 +3,16 @@ import { getAnchorProvider } from "@/programs/provider";
 import { ASSOCIATED_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
 import {
   ASSOCIATED_TOKEN_PROGRAM_ID,
-  createAssociatedTokenAccount,
   createAssociatedTokenAccountInstruction,
   createInitializeMintInstruction,
-  createMint,
   createMintToInstruction,
+  createTransferCheckedInstruction, // transfer
+  createApproveInstruction, // approve
+  createRevokeInstruction, // revoke
   getAccount,
   getAssociatedTokenAddress,
-  getMinimumBalanceForRentExemptMint,
-  getMint,
-  getOrCreateAssociatedTokenAccount,
   MINT_SIZE,
-  mintTo,
   TOKEN_PROGRAM_ID,
-  transferChecked,
 } from "@solana/spl-token";
 import {
   useAnchorWallet,
@@ -165,6 +161,31 @@ export default function CreateToken() {
   // };
 
   // Frontend Wallet
+
+  // For pull every token that holded by owner
+  // connection.getParsedTokenAccountsByOwner(publicKey, { programId: TOKEN_PROGRAM_ID})
+  // filter with mint
+  // connection.getParsedTokenAccountsByOwner(publicKey, { mint: mint })
+
+  // Send
+  // SystemProgram.transfer({}) // instruction
+
+  const getEstimateFee = async () => {
+    if (!publicKey || !wallet || !connection) return;
+    const transaction = new Transaction().add(
+      SystemProgram.transfer({
+        fromPubkey: publicKey,
+        toPubkey: publicKey,
+        lamports: 1,
+      })
+    );
+    const fee = await transaction.getEstimatedFee(connection);
+    console.log(fee);
+  };
+  const getFeeForMessage = async () => {
+    // const message = new Message([]) // array of instructions
+    // const fee = await connection.getFeeCalculatorForMessage(message)
+  }
 
   // 1 - Create Mint Account
   const createMintToken = async () => {
@@ -329,7 +350,9 @@ export default function CreateToken() {
         <a
           target="_blank"
           href={`https://explorer.solana.com/tx/${transactionSignature}?cluster=${networkConfiguration}`}
-        >Link</a>
+        >
+          Link
+        </a>
         )
       </p>
 
